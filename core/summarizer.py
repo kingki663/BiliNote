@@ -1,13 +1,8 @@
 import os
-from pyexpat import model
-from dotenv import load_dotenv, find_dotenv
 from openai import OpenAI
 
-load_dotenv(dotenv_path="../.env")
-client = OpenAI(
-    api_key=os.getenv("DEEPSEEK_API_KEY"),  # 从环境变量获取API密钥
-    base_url="https://api.deepseek.com/v1"  # DeepSeek API 地址
-)
+
+
 
 def summarize_content(content: str, language: str = "chinese") -> str:
     """
@@ -18,6 +13,10 @@ def summarize_content(content: str, language: str = "chinese") -> str:
     返回:
         模型生成的总结文本
     """
+    client = OpenAI(
+    api_key=os.getenv("DEEPSEEK_API_KEY"),  # 从环境变量获取API密钥
+    base_url="https://api.deepseek.com/v1"  # DeepSeek API 地址
+)
     
     # 提示词模板（可根据需求调整）
     system_prompt = """你是一个专业的内容总结助手，请严格按照以下要求工作：
@@ -41,8 +40,7 @@ def summarize_content(content: str, language: str = "chinese") -> str:
 
     return response.choices[0].message.content # type: ignore
 
-# 使用示例
-if __name__ == "__main__":
+def main():
     sample_text = """DeepSeek和o1/o3一类推理大模型持续带来震撼之际，**有人开始研究他们的弱点了**。
 
 最新研究揭示：
@@ -142,3 +140,6 @@ if __name__ == "__main__":
 初步实验结果表示，简洁解码在AIME2024测试上能提高6%-7%的准确率，比Consensus Decoding更好也更快。"""
     summary = summarize_content(sample_text)
     print("总结结果：\n", summary)
+
+if __name__ == '__main__':
+    main()

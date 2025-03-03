@@ -3,3 +3,5 @@
 *.wav
 *.mp4
 *.flac
+*/resources/*
+**/__pycache__/*

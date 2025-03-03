@@ -5,3 +5,4 @@
 *.flac
 */resources/*
 **/__pycache__/*
+/resources/*
